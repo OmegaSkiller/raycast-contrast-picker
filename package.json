@@ -40,7 +40,7 @@
         {
           "name": "foreground",
           "type": "text",
-          "placeholder": "Text color",
+          "placeholder": "Text Color",
           "required": false
         },
         {
@@ -78,7 +78,7 @@
     {
       "name": "copyFormat",
       "title": "Primary Copy Format",
-      "description": "The format that the main copy action (⌘1) uses.",
+      "description": "The format used when you press Return to copy the suggested fix.",
       "type": "dropdown",
       "required": false,
       "default": "hex",
