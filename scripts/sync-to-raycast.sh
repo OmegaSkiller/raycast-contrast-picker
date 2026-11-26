@@ -4,13 +4,15 @@
 set -euo pipefail
 
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
-FORK="${RAYCAST_FORK:-OmegaSkiller/extensions}"
+FORK="${RAYCAST_FORK:-OmegaSkiller/raycast-extensions}"
 BRANCH="${RAYCAST_BRANCH:-ext/contrast-picker}"
 MESSAGE="${1:-Update contrast-picker}"
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT
 
-git clone --quiet --depth 1 --branch "$BRANCH" "https://github.com/$FORK.git" "$WORK/fork"
+# The raycast/extensions repository is very large. Clone only the files that we need.
+git clone --quiet --depth 1 --filter=blob:none --sparse --branch "$BRANCH" "https://github.com/$FORK.git" "$WORK/fork"
+git -C "$WORK/fork" sparse-checkout set extensions/contrast-picker
 DEST="$WORK/fork/extensions/contrast-picker"
 rm -rf "$DEST"
 mkdir -p "$DEST"
