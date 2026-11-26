@@ -123,7 +123,8 @@ export function toOklchString(rgb: RGB): string {
 export function fromOklch(l: number, c: number, h: number): RGB {
   const color = new Color("oklch", [clamp01(l), c, h]).to("srgb").toGamut();
   const [r, g, b] = color.coords.map((v) => clamp01(Number(v) || 0));
-  return { r, g, b };
+  // Snap to 8-bit so the checked color is exactly the hex the user copies.
+  return hexToRgb(toHex({ r, g, b }));
 }
 
 /** Finds the closest Tailwind CSS palette color (by OKLab ΔE). */

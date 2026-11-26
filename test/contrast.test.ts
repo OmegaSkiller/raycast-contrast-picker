@@ -80,6 +80,12 @@ describe("fixes", () => {
     expect(toHex(fix.bg)).toBe("#ffffff");
   });
 
+  it("checks the copied hex, not an unrounded color", () => {
+    const fix = findFix(c("#aaaaaa"), c("#ffffff"), { target: "aa", mode: "foreground", sizePx: 16, weight: 400 })!;
+    expect(toHex(fix.fg)).toBe("#767676");
+    expect(passesTarget(c(toHex(fix.fg)), c("#ffffff"), "aa", 16, 400)).toBe(true);
+  });
+
   it("keeps the hue of a brand color", () => {
     const fix = findFix(c("#a2d26b"), c("#ffffff"), { target: "aa", mode: "foreground", sizePx: 16, weight: 400 })!;
     const g = fix.fg.g;
